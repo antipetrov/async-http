@@ -135,7 +135,7 @@ def main():
     server.bind((bind_ip, opts.port))
     server.listen(5)  # max backlog of connections
 
-    workers = []
+    worker_threads = []
     client_queue = Queue()
 
     for w in range(0,opts.workers):
@@ -143,7 +143,7 @@ def main():
         worker_thread = threading.Thread(target=handle_client_queue, args=((client_queue,w,)))
         worker_thread.daemon = True
         worker_thread.start()
-        workers.append(worker)
+        worker_threads.append(worker_thread)
 
     print 'Listening on {}:{}'.format(bind_ip, opts.port)
 
@@ -153,6 +153,7 @@ def main():
             client_queue.put((client_sock, address))
     except KeyboardInterrupt as e:
         print("server stopped")
+        exit()
 
 
 
