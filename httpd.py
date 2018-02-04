@@ -152,7 +152,7 @@ def main():
             client_sock, address = server.accept()
             client_queue.put((client_sock, address))
     except KeyboardInterrupt as e:
-        print("server stopped")
+        print("\nserver stopped")
         exit()
 
 
